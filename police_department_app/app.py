@@ -70,19 +70,19 @@ def register_manager():
         # إضافة المدير إلى قاعدة البيانات
         try:
             add_manager(username, password)
-            flash('تم إضافة المدير بنجاح.')
+            # return 'تم إضافة المدير بنجاح.'
             return redirect(url_for('login_manager'))
         except Exception as e:
-            flash('فشل في إضافة المدير: ' + str(e))
+            # return 'فشل في إضافة المدير: '
             return redirect(url_for('register_manager'))
 
     return render_template('register_manager.html')
 
+# @app.route('/')
+# def home():
+#     return render_template('login_manager.html')
 
 @app.route('/')
-def home():
-    return render_template('login_manager.html')
-
 @app.route('/login_manager', methods=['GET', 'POST'])
 def login_manager():
     if request.method == 'POST':
@@ -92,10 +92,10 @@ def login_manager():
         # التحقق من بيانات تسجيل الدخول
         if check_login(username, password):
             session['manager'] = username
-            flash('تسجيل الدخول ناجح!')
+            # return 'تسجيل الدخول ناجح!'
             return render_template('dashboard.html', manager=session['manager'])
         else:
-            flash('اسم المستخدم أو كلمة المرور غير صحيحة.')
+            # return 'اسم المستخدم أو كلمة المرور غير صحيحة.'
             return redirect(url_for('login_manager'))
 
     return render_template('login_manager.html')
