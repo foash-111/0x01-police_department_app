@@ -79,7 +79,6 @@ def register_manager():
         username = request.form['username']
         password = request.form['password']
         
-        # إضافة المدير إلى قاعدة البيانات
         try:
             if add_manager(username, password):
                 return jsonify({"message": "تمت إضافة المدير بنجاح"})
