@@ -23,7 +23,7 @@ class Person(Base):
     residence = Column(String, default='0')
     profession = Column(String, default='0')
     workplace = Column(String, default='0')
-    military_service = Column(String), default='0'
+    military_service = Column(String, default='0')
     distinctive_marks = Column(String, default='0')
     entry_number = Column(String, default='0')
     place_number = Column(String, default='0')  # رقم مكانها
