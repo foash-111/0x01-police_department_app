@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بحث عن شخص</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <h1>البحث عن شخص</h1>
+    <form id="searchForm">
+        <label for="searchInput">البحث حسب الاسم أو الرقم القومي</label>
+        <input type="text" id="searchInput" name="searchInput" placeholder="ادخل الاسم أو الرقم القومي">
+        <button type="submit">بحث</button>
+    </form>
+
+    <div id="results" class="search-results">
+        <!-- نتائج البحث ستظهر هنا -->
+    </div>
+
+    <button onclick="window.location.href='/dashboard'" class="back-button">رجوع</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // التعامل مع إرسال النموذج باستخدام AJAX
+        $('#searchForm').on('submit', function(event) {
+            event.preventDefault();  // منع الإرسال الافتراضي للنموذج
+
+            // الحصول على مدخلات البحث
+            const searchInput = $('#searchInput').val();
+
+            // إرسال طلب AJAX إلى الخادم
+            $.ajax({
+                type: 'POST',
+                url: '/search_person',  // عنوان URL لمسار Flask
+                data: { 
+                    searchInput: searchInput,  // إرسال المدخل كـ 'searchInput'
+                },
+                success: function(response) {
+                    // مسح النتائج السابقة
+                    $('#results').empty();
+
+                    // التحقق مما إذا كانت هناك نتائج
+                    if (response.length > 0) {
+                        // تكرار عبر كل نتيجة وعرضها
+                        response.forEach(function(person) {
+                            $('#results').append('<p><a href="/profile/' + person.id_number + '>الاسم: ' + person.name + ' - الرقم القومي: ' + person.id_number + '</a></p>');
+                        });
+                    } else {
+                        // عرض رسالة "لم يتم العثور على نتائج"
+                        $('#results').append('<p>لم يتم العثور على نتائج.</p>');
+                    }
+                },
+                error: function(error) {
+                    console.log('Error:', error);
+                    $('#results').append('<p>حدث خطأ أثناء البحث.</p>');
+                }
+            });
+        });
+    </script>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

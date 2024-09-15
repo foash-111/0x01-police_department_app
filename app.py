@@ -4,9 +4,10 @@ import bcrypt
 import webview
 import threading
 from database import search_person, add_charge, add_person
-from database import add_manager, check_login
+from database import add_manager, check_login, get_person_by_id
 import secrets
 secret_key = secrets.token_hex(16)
+from sqlalchemy.exc import IntegrityError
 
 app = Flask(__name__)
 app.secret_key = secret_key
@@ -16,11 +17,16 @@ app.secret_key = secret_key
 @app.route('/search_person', methods=['GET','POST'])
 def search():
     if request.method == 'POST':
-        name = request.form.get('name')
-        id_number = request.form.get('id_number')
-        results = search_person(name, id_number)
-        return jsonify(results)
+        search_input = request.form.get('searchInput')
+        results = search_person(search_input)  # تمرير المدخل إلى دالة البحث
+        return jsonify(results)  # إرجاع النتائج كـ JSON
     return render_template('search.html')
+
+@app.route('/profile/<int:person_id>')
+def profile(person_id):
+    person = get_person_by_id(person_id)  # دالة للحصول على بيانات الشخص من قاعدة البيانات
+    return render_template('profile.html', person=person)
+
 
 @app.route('/add_person_and_charge', methods=['GET', 'POST'])
 def add_person_and_charge():
@@ -38,17 +44,23 @@ def add_person_and_charge():
             military_service = request.form.get('military_service')
             distinctive_marks = request.form.get('distinctive_marks')
             entry_number = request.form.get('entry_number')
+            place_number = request.form.get('place_number')
+            risk_number = request.form.get('risk_number')
+            activity = request.form.get('activity')
+            category = request.form.get('category')
 
             charge_number = request.form.get('charge_number')
             charge_year = request.form.get('charge_year')
             police_station = request.form.get('police_station')
             crime_method = request.form.get('crime_method')
 
-            # Add person and retrieve person_id
+
+            # إضافة الشخص للقاعدة مع البيانات الجديدة
             person_id = add_person(
                 name, alias, reputation, age, nationality, id_number,
                 residence, profession, workplace, military_service,
-                distinctive_marks, entry_number
+                distinctive_marks, entry_number, place_number, risk_number,
+                activity, category
             )
 
             # Add charge related to person
@@ -69,12 +81,12 @@ def register_manager():
         
         # إضافة المدير إلى قاعدة البيانات
         try:
-            add_manager(username, password)
-            # return 'تم إضافة المدير بنجاح.'
-            return redirect(url_for('login_manager'))
+            if add_manager(username, password):
+                return jsonify({"message": "تمت إضافة المدير بنجاح"})
+            else:
+                return jsonify({"message": "المدير موجود بالفعل"}), 409  # Conflict, since manager already exists
         except Exception as e:
-            # return 'فشل في إضافة المدير: '
-            return redirect(url_for('register_manager'))
+            return jsonify({"message": "فشل في اضافة المدير", "error": str(e)}), 500 
 
     return render_template('register_manager.html')
 
@@ -104,7 +116,7 @@ def login_manager():
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if 'manager' in session:
-        return f"<h1>مرحبًا بك، {session['manager']}!</h1>"
+        return render_template('dashboard.html', manager=session['manager'])
     else:
         flash('يجب تسجيل الدخول للوصول إلى هذه الصفحة.')
         return redirect(url_for('login_manager'))
@@ -112,7 +124,7 @@ def dashboard():
 # مسار لتسجيل الخروج
 @app.route('/logout')
 def logout():
-    session.pop('manager', None)
+    # session.pop('manager', None)
     flash('تم تسجيل الخروج بنجاح.')
     return redirect(url_for('login_manager'))
 

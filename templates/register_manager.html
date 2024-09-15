@@ -9,7 +9,7 @@
 <body>
     <div class="form-container">
         <h1>تسجيل مدير جديد</h1>
-        <form method="POST" action="/register_manager">
+        <form method="POST" id="addManagerForm" action="/register_manager">
             <label for="username">اسم المستخدم</label>
             <input type="text" id="username" name="username" required>
 
@@ -19,7 +19,8 @@
             <button type="submit">تسجيل</button>
         </form>
     </div>
-    <button onclick="goBack()" class="back-button">رجوع</button>
+    <div id="responseMessage"></div>
+<button onclick="window.location.href='/dashboard'" class="back-button">رجوع</button>
     <script src="/static/js/script.js"></script>
 </body>
 </html>

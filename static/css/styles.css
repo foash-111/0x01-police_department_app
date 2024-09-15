@@ -131,3 +131,30 @@ button:hover {
     justify-content: center; /* Center the content horizontally */
     align-items: center; /* Center the content vertically */
 }
+
+
+.risk-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates 4 equal columns */
+    gap: 10px; /* Adds space between the grid items */
+    width: 100%; /* Make the container take the full width */
+    margin-top:  10px;
+}
+
+.grid-item-00 {
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+}
+/* #responseMessage {
+    font-size: larger;
+    font-weight: 400;
+    justify-content: center; /* Center the content horizontally 
+    align-items: center;
+}
+ */
+
+input::placeholder {
+    font-size: 18px; /* حجم النص في الـ placeholder */
+    color: #999; /* لون placeholder، يمكنك تغييره كما تريد */
+}
