@@ -81,7 +81,8 @@ def register_manager():
         
         try:
             if add_manager(username, password):
-                return jsonify({"message": "تمت إضافة المدير بنجاح"})
+                flash('تمت إضافة المدير بنجاح', 'success')
+               
             else:
                 return jsonify({"message": "المدير موجود بالفعل"}), 409  # Conflict, since manager already exists
         except Exception as e:

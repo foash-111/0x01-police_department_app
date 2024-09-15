@@ -1,160 +1,158 @@
 /* إعدادات عامة */
+
 body {
     font-family: Arial, sans-serif;
     background-color: white;
-    direction: rtl;
-    text-align: right;
-    color: #333;
-    padding: 20px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 /* تنسيق الحاوية الرئيسية للنموذج */
 .form-container {
-    background-color: #f9f9f9;
+    height: 100%;
+    background-color: #fff;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    max-width: 800px;
-    margin: auto;
+    width: 500px;
+    text-align: right;
+    justify-content: center;
+    margin: 150px;
 }
 
-/* إعدادات الـ Grid */
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* تقسيم إلى عمودين متساويين */
-    gap: 20px; /* مسافة بين العناصر */
+h1 {
+    margin-bottom: 12px;
+    font-size: 30px;
+    text-align: center;
 }
 
-.grid-item input[type="text"],
-.grid-item input[type="number"] {
-    width: 100%;
-    padding: 8px;
+form {
+    display: flex;
+    font-size: 18px;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    width: 60%;
+    text-align: right;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 60%;
+    padding: 10px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-/* تخصيص الحقول التي تتطلب أرقامًا لتكون أصغر */
-.grid-item input[type="number"] {
-    width: 100%; /* نصف العرض */
-}
-
-.grid-item label {
-    font-size: 16px;
-    margin-bottom: 5px;
-    display: block;
-    font-weight: bold;
-}
-
-/* تنسيق الأزرار */
 button {
-    padding: 10px 20px;
+    width: 40%;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 10px;
+    padding: 10px;
     background-color: #007bff;
-    color: white;
+    color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 50%;
-    margin-top: 20px;
-    margin-left: 25%;
-    margin-right: 25%;
-    font-size: large;
-    font-weight: 400;
+}
+
+span {
+    color: red;
+    font-size: 14px;
+    margin: 10px;
+    font-family: 'serif';
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-
-/* تنسيق نموذج البحث */
-#searchForm {
-    margin-bottom: 20px;
-}
-
-#searchForm label {
+.back-button {
     display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+    text-align: center;
+    bottom: 100px;
+    left: 0;
+    position: absolute;
+    width: 200px;
 }
 
-#searchForm input[type="text"] {
-    width: calc(100% - 22px); /* أخذ مساحة الـ padding والحافة في الاعتبار */
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-#searchForm button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-}
-
-#searchForm button:hover {
+.back-button:hover {
     background-color: #0056b3;
 }
 
-/* تنسيق قائمة نتائج البحث */
-.search-results {
-    margin-top: 20px;
+.form-container .grid-container {
+    width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
 }
 
-.search-results ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.search-results li {
+.form-container .grid-container input {
     padding: 10px;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
+    margin: 5px;
+    width: 80%;
 }
 
-.search-results li:hover {
-    background-color: #f1f1f1;
-}
-
-
-.grid-container-01 {
+.form-container .risk-container {
+    width: 1000px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Creates 4 equal columns */
-    gap: 10px; /* Adds space between the grid items */
-    width: 100%; /* Make the container take the full width */
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
 }
 
-.grid-item-01 {
-    display: flex;
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
+.form-container .risk-container input {
+    padding: 10px;
+    margin: 5px;
+    width: 80%;
 }
 
-
-.risk-container{
+.form-container .grid-container-01 {
+    width: 1000px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Creates 4 equal columns */
-    gap: 10px; /* Adds space between the grid items */
-    width: 100%; /* Make the container take the full width */
-    margin-top:  10px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
 }
 
-.grid-item-00 {
-    display: flex;
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
+.form-container .grid-container-01 input {
+    top: 0;
+    padding: 10px;
+    margin: 5px;
+    width: 100%;
+  
 }
-/* #responseMessage {
-    font-size: larger;
-    font-weight: 400;
-    justify-content: center; /* Center the content horizontally 
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
     align-items: center;
+    gap: 10px;
 }
- */
 
-input::placeholder {
-    font-size: 18px; /* حجم النص في الـ placeholder */
-    color: #999; /* لون placeholder، يمكنك تغييره كما تريد */
+
+.top-right h1 {
+    margin: 0;
+}
+.back-button {
+    display: block;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 50px;
 }

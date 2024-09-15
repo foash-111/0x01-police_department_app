@@ -8,8 +8,10 @@
 </head>
 <body>
     <div class="form-container">
+        
         <h1>تسجيل الدخول</h1>
         <form method="POST" action="/login_manager">
+            
             <label for="username">اسم المستخدم</label>
             <input type="text" id="username" name="username" required>
 
@@ -17,6 +19,7 @@
             <input type="password" id="password" name="password" required>
 
             <button type="submit">تسجيل الدخول</button>
+            <span > ليس لديك حساب؟ <a href="/register_manager">سجل الآن </a></span>
         </form>
     </div>
     <script src="/static/js/script.js"></script>
