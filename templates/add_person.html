@@ -16,7 +16,7 @@
                     <input type="text" id="name" name="name" placeholder="الاسم" required>
                 </div>
                 <div class="grid-item">
-                    <input type="text" id="alias" name="alias" placeholder="الاسم المستعار">
+                    <input type="text" id="alias" name="alias" placeholder="الانتحال">
                 </div>
                 <div class="grid-item">
                     <input type="text" id="reputation" name="reputation" placeholder="الشهرة">
@@ -25,13 +25,13 @@
                     <input type="number" id="age" name="age" placeholder="السن">
                 </div>
                 <div class="grid-item">
-                    <input type="text" id="nationality" name="nationality" placeholder="الجنسية">
-                </div>
-                <div class="grid-item">
                     <input type="text" id="id_number" name="id_number" placeholder="الرقم القومي">
                 </div>
                 <div class="grid-item">
                     <input type="text" id="residence" name="residence" placeholder="محل الإقامة">
+                </div>
+                <div class="grid-item">
+                    <input type="text" id="nationality" name="nationality" placeholder="الجنسية">
                 </div>
                 <div class="grid-item">
                     <input type="text" id="military_service" name="military_service" placeholder="الخدمة العسكرية">
@@ -42,16 +42,21 @@
                 <div class="grid-item">
                     <input type="text" id="workplace" name="workplace" placeholder="مكان العمل">
                 </div>
-                <div class="grid-item">
-                    <input type="text" id="distinctive_marks" name="distinctive_marks" placeholder="العلامات المميزة">
-                </div>
-                <div class="grid-item">
-                    <input type="text" id="place_number" name="place_number" placeholder="رقم مكانها">
-                </div>
+               
                 <div class="grid-item">
                     <input type="text" id="entry_number" name="entry_number" placeholder="رقم الإدراج">
                 </div>
             </div>
+
+            <div class="special-sign">
+                <div class="grid-item special-sign-item">
+                    <input type="text" id="distinctive_marks" name="distinctive_marks" placeholder="العلامات المميزة">
+                </div>
+                <div class="grid-item special-sign-item">
+                    <input type="text" id="place_number" name="place_number" placeholder="رقم مكانها">
+                </div>
+            </div>
+            
             <div class="risk-container">
                 <div class="grid-item grid-item-00">
                     <input type="text" id="risk_number" name="risk_number" placeholder="رقم الخطورة">
@@ -66,10 +71,10 @@
             <h2>التهمة</h2>
             <div class="grid-container-01">
                 <div class="grid-item grid-item-01">
-                    <input type="text" id="charge_number" name="charge_number" placeholder="رقم التهمة">
+                    <input type="text" id="charge_number" name="charge_number" placeholder="رقم القضية">
                 </div>
                 <div class="grid-item grid-item-01">
-                    <input type="number" id="charge_year" name="charge_year" placeholder="سنة التهمة">
+                    <input type="number" id="charge_year" name="charge_year" placeholder="سنة القضية">
                 </div>
                 <div class="grid-item grid-item-01">
                     <input type="text" id="police_station" name="police_station" placeholder="قسم/مركز الشرطة">
@@ -82,8 +87,11 @@
             
 
             <button type="submit">إضافة البيانات</button>
+            <h3 id="responseMessage"></h3>
+            <button onclick="location.href='/dashboard'" class="back-button">رجوع</button>
         </form>
-        <div id="responseMessage"></div>
+        <!-- <div class="top-right"></div>
+        </div> -->
     </div>
     <script src="/static/js/script.js"></script>
 </body>

@@ -26,10 +26,10 @@ document.addEventListener("DOMContentLoaded", function() {
             let data = await response.json();
             
             // Display the message from the server
-            responseMessage.innerHTML = `<p>${data.message}</p>`;
+            responseMessage.innerHTML = `${data.message}`;
 
             // Optionally, clear the form if the submission was successful
-            if (data.message.includes("تمت إضافة المدير بنجاح")) {
+            if (data.message.includes("تمت إضافة البيانات والتهمة بنجاح")) {
                 form.reset(); // Clear the form fields
             }
         } catch (error) {
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
             responseMessage.innerHTML = `<p>${data.message}</p>`;
 
             // Optionally, clear the form if the submission was successful
-            if (data.message.includes("تمت إضافة البيانات والتهمة بنجاح")) {
+            if (data.message.includes("تمت إضافة المدير بنجاح")) {
                 form.reset(); // Clear the form fields
             }
         } catch (error) {

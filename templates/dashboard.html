@@ -10,14 +10,14 @@
     <div class="dashboard-container">
         <div class="top-right">
             <h1>مرحبًا، {{ manager }}!</h1>
-            <button onclick="location.href='/login_manager'" class="back-button">رجوع</button>
         </div>
         <div class="buttons-container">
-            <button onclick="location.href='/register_manager'">إضافة مدير جديد</button>
+            <!-- <button onclick="location.href='/register_manager'">إضافة مدير جديد</button> -->
             <button onclick="location.href='/search_person'">البحث عن مجرم</button>
             <button onclick="location.href='/add_person_and_charge'">إضافة مجرم جديد</button>
             <button onclick="location.href='/logout'">تسجيل الخروج</button>
         </div>
+        <button onclick="location.href='/login_manager'" class="back-button">رجوع</button>
     </div>
     <script src="/static/js/script.js"></script>
 </body>

@@ -22,7 +22,7 @@ def search():
         return jsonify(results)  # إرجاع النتائج كـ JSON
     return render_template('search.html')
 
-@app.route('/profile/<int:person_id>')
+@app.route('/profile/<int:person_id>', methods=['Get', 'POST'])
 def profile(person_id):
     person = get_person_by_id(person_id)  # دالة للحصول على بيانات الشخص من قاعدة البيانات
     return render_template('profile.html', person=person)

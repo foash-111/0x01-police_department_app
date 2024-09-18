@@ -7,44 +7,43 @@
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-    <h1>البحث عن شخص</h1>
+    <div class="search">
+    <div class="search-container">
+    <h1 class="search-grid-iteem">البحث عن شخص</h1>
     <form id="searchForm">
-        <label for="searchInput">البحث حسب الاسم أو الرقم القومي</label>
-        <input type="text" id="searchInput" name="searchInput" placeholder="ادخل الاسم أو الرقم القومي">
-        <button type="submit">بحث</button>
+        <!-- <label for="searchInput">البحث حسب الاسم أو الرقم القومي</label> -->
+        <input class="search-grid-iteem" type="text" id="searchInput" name="searchInput" placeholder="ادخل الاسم أو رقم القضية">
+        <button class="search-grid-iteem" type="submit">بحث</button>
     </form>
 
-    <div id="results" class="search-results">
+    <div class="search-grid-iteem" id="results" class="search-results">
+    </div>
         <!-- نتائج البحث ستظهر هنا -->
     </div>
-
-    <button onclick="window.location.href='/dashboard'" class="back-button">رجوع</button>
+    <div>
+        <button onclick="window.location.href='/dashboard'" class="back-search-button">رجوع</button>
+    </div>
+</div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        // التعامل مع إرسال النموذج باستخدام AJAX
         $('#searchForm').on('submit', function(event) {
-            event.preventDefault();  // منع الإرسال الافتراضي للنموذج
+            event.preventDefault();
 
-            // الحصول على مدخلات البحث
             const searchInput = $('#searchInput').val();
 
-            // إرسال طلب AJAX إلى الخادم
+          
             $.ajax({
                 type: 'POST',
-                url: '/search_person',  // عنوان URL لمسار Flask
+                url: '/search_person',
                 data: { 
-                    searchInput: searchInput,  // إرسال المدخل كـ 'searchInput'
+                    searchInput: searchInput,
                 },
                 success: function(response) {
-                    // مسح النتائج السابقة
                     $('#results').empty();
-
-                    // التحقق مما إذا كانت هناك نتائج
                     if (response.length > 0) {
-                        // تكرار عبر كل نتيجة وعرضها
                         response.forEach(function(person) {
-                            $('#results').append('<p><a href="/profile/' + person.id_number + '>الاسم: ' + person.name + ' - الرقم القومي: ' + person.id_number + '</a></p>');
+                            $('#results').append('<p><a href="/profile/' + person.id + '">' + person.name + '</a></p>');
                         });
                     } else {
                         // عرض رسالة "لم يتم العثور على نتائج"

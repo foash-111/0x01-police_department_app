@@ -4,6 +4,9 @@ from sqlalchemy.orm import relationship, sessionmaker
 import bcrypt
 from sqlalchemy import func
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import joinedload
+from sqlalchemy import or_
+
 # Setup SQLite database connection
 engine = create_engine('sqlite:///police_department.db', echo=True)
 Base = declarative_base()
@@ -49,7 +52,7 @@ class Manager(Base):
     password = Column(String, nullable=False)
 
 # Create the tables
-Base.metadata.drop_all(engine)
+# Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)
 
 
@@ -91,11 +94,16 @@ def search_person(search_input):
     persons = []
     if search_input:
         # name
-        persons = session.query(Person).filter(Person.name.like(f'%{search_input}%')).limit(100).all()
+        persons = session.query(Person)\
+        .join(Charge, Person.charges)\
+        .filter(or_(Person.name.like(f'%{search_input}%'),
+                    Charge.charge_number.like(f'%{search_input}%')))\
+        .options(joinedload(Person.charges))\
+        .limit(100)\
+        .all()
         # person_id
-        persons += session.query(Person).filter_by(id_number=search_input).limit(100).all()
     
-    return [{"name": person.name, "id_number": person.id_number} for person in persons]
+    return [{"name": person.name, "id": person.id, "residence": person.residence} for person in persons]
 
 
 def get_person_by_id(id=0):
