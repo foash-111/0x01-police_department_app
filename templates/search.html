@@ -5,34 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بحث عن شخص</title>
     <link rel="stylesheet" href="/static/css/styles.css">
+    <style>
+        /* Pop-up styles */
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+        }
+
+        .close {
+            float: right;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
     <div class="search">
-    <div class="search-container">
-    <h1 class="search-grid-iteem">البحث عن شخص</h1>
-    <form id="searchForm">
-        <!-- <label for="searchInput">البحث حسب الاسم أو الرقم القومي</label> -->
-        <input class="search-grid-iteem" type="text" id="searchInput" name="searchInput" placeholder="ادخل الاسم أو رقم القضية">
-        <button class="search-grid-iteem" type="submit">بحث</button>
-    </form>
+        <div class="search-container">
+            <h1 class="search-grid-item">البحث عن شخص</h1>
+            <form id="searchForm">
+                <input class="search-grid-item" type="text" id="searchInput" name="searchInput" placeholder="ادخل الاسم أو رقم القضية">
+                <button class="search-grid-item" type="submit">بحث</button>
+            </form>
 
-    <div class="search-grid-iteem" id="results" class="search-results">
-    </div>
-        <!-- نتائج البحث ستظهر هنا -->
-    </div>
-    <div>
+            <div id="searchResultsPopup" class="popup">
+                <div class="popup-content">
+                    <span class="close">&times;</span>
+                    <h2>نتائج البحث</h2>
+                    <table id="resultsTable">
+                        <thead>
+                            <tr>
+                                <th>الاسم</th>
+                                <th>العنوان</th>
+                                <th>رقم القضية</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- نتائج البحث هتتحط هنا -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <button onclick="window.location.href='/dashboard'" class="back-search-button">رجوع</button>
     </div>
-</div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        // Function to handle search form submission
         $('#searchForm').on('submit', function(event) {
             event.preventDefault();
-
+            
             const searchInput = $('#searchInput').val();
 
-          
             $.ajax({
                 type: 'POST',
                 url: '/search_person',
@@ -40,23 +93,49 @@
                     searchInput: searchInput,
                 },
                 success: function(response) {
-                    $('#results').empty();
+                    // Clear old results
+                    $('#resultsTable tbody').empty();
+
                     if (response.length > 0) {
+                        // Populate the table with search results
                         response.forEach(function(person) {
-                            $('#results').append('<p><a href="/profile/' + person.id + '">' + person.name + '</a></p>');
+                            const address = person.address ? person.address : 'لا يوجد';
+                            const caseNumber = person.case_number ? person.case_number : 'لا يوجد';
+                            $('#resultsTable tbody').append(`
+                                <tr>
+                                    <td><a href="/profile/${person.id}">${person.name}</a></td>
+                                    <td>${address}</td>
+                                    <td>${caseNumber}</td>
+                                </tr>
+                            `);
                         });
                     } else {
-                        // عرض رسالة "لم يتم العثور على نتائج"
-                        $('#results').append('<p>لم يتم العثور على نتائج.</p>');
+                        // If no results, show message
+                        $('#resultsTable tbody').append('<tr><td colspan="3">لم يتم العثور على نتائج.</td></tr>');
                     }
+
+                    // Show the pop-up
+                    $('#searchResultsPopup').css('display', 'block');
                 },
                 error: function(error) {
                     console.log('Error:', error);
-                    $('#results').append('<p>حدث خطأ أثناء البحث.</p>');
+                    $('#resultsTable tbody').append('<tr><td colspan="3">حدث خطأ أثناء البحث.</td></tr>');
+                    $('#searchResultsPopup').css('display', 'block');
                 }
             });
         });
+
+        // Close the pop-up when clicking on the close button
+        $('.close').on('click', function() {
+            $('#searchResultsPopup').css('display', 'none');
+        });
+
+        // Close the pop-up when clicking outside the pop-up content
+        $(window).on('click', function(event) {
+            if (event.target.id === 'searchResultsPopup') {
+                $('#searchResultsPopup').css('display', 'none');
+            }
+        });
     </script>
-    <script src="/static/js/script.js"></script>
 </body>
 </html>

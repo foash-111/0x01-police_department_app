@@ -27,13 +27,22 @@ class Person(Base):
     profession = Column(String, default='0')
     workplace = Column(String, default='0')
     military_service = Column(String, default='0')
-    distinctive_marks = Column(String, default='0')
-    entry_number = Column(String, default='0')
-    place_number = Column(String, default='0')  # رقم مكانها
+    entry_number = Column(String, default='0')   # رقم الادراج
     risk_number = Column(String, default='0')   # رقم الخطورة
     activity = Column(String, default='0')      # النشاط
     category = Column(String, default='0')      # الفئة
-    charges = relationship("Charge", back_populates="person")
+    charges = relationship("Charge", back_populates="person", cascade="all, delete-orphan")
+    distinctive_marks = relationship("DistinctiveMark", back_populates="person", cascade="all, delete-orphan")
+
+
+# جدول العلامات المميزة (DistinctiveMarks)
+class DistinctiveMark(Base):
+    __tablename__ = 'distinctive_marks'
+    id = Column(Integer, primary_key=True)
+    person_id = Column(Integer, ForeignKey('persons.id'))
+    distinctive_marks = Column(String, default='0')
+    place_number = Column(String, default='0')  # رقم مكانها
+    person = relationship("Person", back_populates="distinctive_marks")
 
 class Charge(Base):
     __tablename__ = 'charges'
@@ -52,7 +61,7 @@ class Manager(Base):
     password = Column(String, nullable=False)
 
 # Create the tables
-# Base.metadata.drop_all(engine)
+#  Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)
 
 
@@ -64,7 +73,14 @@ def add_charge(person_id, charge_number, charge_year, police_station, crime_meth
     session.add(new_charge)
     session.commit()
 
-def add_person(name, alias, reputation, age, nationality, id_number, residence, profession, workplace, military_service, distinctive_marks, entry_number, place_number, risk_number, activity, category):
+
+def add_distinctive_marks(person_id, distinctive_marks, place_number):
+    new_distinctive_mark = DistinctiveMark(
+        person_id=person_id,distinctive_marks=distinctive_marks, place_number=place_number)
+    session.add(new_distinctive_mark)
+    session.commit()
+
+def add_person(name, alias, reputation, age, nationality, id_number, residence, profession, workplace, military_service, entry_number, risk_number, activity, category):
     new_person = Person(
         name=name,
         alias=alias,
@@ -76,9 +92,7 @@ def add_person(name, alias, reputation, age, nationality, id_number, residence, 
         profession=profession,
         workplace=workplace,
         military_service=military_service,
-        distinctive_marks=distinctive_marks,
         entry_number=entry_number,
-        place_number=place_number,  
         risk_number=risk_number,    
         activity=activity,          
         category=category

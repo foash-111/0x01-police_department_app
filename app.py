@@ -3,7 +3,7 @@ from flask import Flask, jsonify, render_template, request, redirect, url_for, f
 import bcrypt
 import webview
 import threading
-from database import search_person, add_charge, add_person
+from database import search_person, add_charge, add_person, add_distinctive_marks
 from database import add_manager, check_login, get_person_by_id
 import secrets
 secret_key = secrets.token_hex(16)
@@ -42,9 +42,9 @@ def add_person_and_charge():
             profession = request.form.get('profession')
             workplace = request.form.get('workplace')
             military_service = request.form.get('military_service')
-            distinctive_marks = request.form.get('distinctive_marks')
             entry_number = request.form.get('entry_number')
-            place_number = request.form.get('place_number')
+            distinctive_marks = request.form.getlist('distinctive_marks[]')
+            place_number = request.form.getlist('place_number[]')
             risk_number = request.form.get('risk_number')
             activity = request.form.get('activity')
             category = request.form.get('category')
@@ -59,13 +59,16 @@ def add_person_and_charge():
             person_id = add_person(
                 name, alias, reputation, age, nationality, id_number,
                 residence, profession, workplace, military_service,
-                distinctive_marks, entry_number, place_number, risk_number,
+                entry_number,risk_number,
                 activity, category
             )
 
-            # Add charge related to person
+            for mark, location in zip(distinctive_marks, place_number):
+                add_distinctive_marks(
+                    person_id=person_id, distinctive_marks=mark, place_number=location)
+
             add_charge(
-                person_id, charge_number, charge_year, police_station, crime_method
+                        person_id, charge_number, charge_year, police_station, crime_method
             )
 
             return jsonify({"message": "تمت إضافة البيانات والتهمة بنجاح"})

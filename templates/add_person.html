@@ -50,12 +50,13 @@
 
             <div class="special-sign">
                 <div class="grid-item special-sign-item">
-                    <input type="text" id="distinctive_marks" name="distinctive_marks" placeholder="العلامات المميزة">
+                    <input type="text" id="distinctive_marks" name="distinctive_marks[]" placeholder="العلامات المميزة">
                 </div>
                 <div class="grid-item special-sign-item">
-                    <input type="text" id="place_number" name="place_number" placeholder="رقم مكانها">
+                    <input type="text" id="place_number" name="place_number[]" placeholder="رقم مكانها">
                 </div>
             </div>
+            <button type="button" id="addSpecialSignButton">+</button>
             
             <div class="risk-container">
                 <div class="grid-item grid-item-00">
@@ -71,18 +72,19 @@
             <h2>التهمة</h2>
             <div class="grid-container-01">
                 <div class="grid-item grid-item-01">
-                    <input type="text" id="charge_number" name="charge_number" placeholder="رقم القضية">
+                    <input type="text" id="charge_number" name="charge_number[]" placeholder="رقم القضية">
                 </div>
                 <div class="grid-item grid-item-01">
-                    <input type="number" id="charge_year" name="charge_year" placeholder="سنة القضية">
+                    <input type="number" id="charge_year" name="charge_year[]" placeholder="سنة القضية">
                 </div>
                 <div class="grid-item grid-item-01">
-                    <input type="text" id="police_station" name="police_station" placeholder="قسم/مركز الشرطة">
+                    <input type="text" id="police_station" name="police_station[]" placeholder="قسم/مركز الشرطة">
                 </div>
                 <div class="grid-item grid-item-01">
-                    <input type="text" id="crime_method" name="crime_method" placeholder="الجريمة والأسلوب">
+                    <input type="text" id="crime_method" name="crime_method[]" placeholder="الجريمة والأسلوب">
                 </div>
             </div>
+            <button type="button" id="addCrimeButton">+</button>
 
             
 

@@ -20,26 +20,41 @@
             <p><strong>الخدمة العسكرية:</strong> <span id="military_service" class="grid-item">{{ person.military_service }}</span></p>
             <p><strong>المهنة:</strong> <span id="profession" class="grid-item">{{ person.profession }}</span></p>
             <p><strong>مكان العمل:</strong> <span id="workplace" class="grid-item">{{ person.workplace }}</span></p>
-            <p><strong>العلامات المميزة:</strong> <span id="distinctive_marks" class="grid-item">{{ person.distinctive_marks }}</span></p>
-            <p><strong>رقم مكانها:</strong> <span id="place_number" class="grid-item">{{ person.place_number }}</span></p>
+            
+            <!-- تعديل العلامات المميزة -->
+            <p><strong>العلامات المميزة:</strong></p>
+            <ul id="distinctive_marks" class="grid-item">
+                {% for mark in person.distinctive_marks %}
+                    <li>{{ mark }}</li>
+                {% else %}
+                    <li>لا يوجد</li>
+                {% endfor %}
+            </ul>
+            
+            <p><strong>رقم مكانها:</strong> <span id="place_number" class="grid-item">{{ person.place_number or 'لا يوجد' }}</span></p>
             <p><strong>رقم الإدراج:</strong> <span id="entry_number" class="grid-item">{{ person.entry_number }}</span></p>
         </div>
-            <h2>معلومات الخطورة</h2>
-            <div class="risk-container">
-                <p><strong>رقم الخطورة:</strong> <span id="risk_number" class="grid-item grid-item-00">{{ person.risk_number }}</span></p>
-                <p><strong>النشاط:</strong> <span id="activity" class="grid-item grid-item-00">{{ person.activity }}</span></p>
-                <p><strong>الفئة:</strong> <span id="category" class="grid-item grid-item-00">{{ person.category }}</span></p>
-            </div>
-            
-            <h2>التهمة</h2>
-            <div class="charge-info grid-container-01">
-                <p><strong>رقم التهمة:</strong> <span id="charge_number" class="grid-item grid-item-01">{{ person.charge_number }}</span></p>
-                <p><strong>سنة التهمة:</strong> <span id="charge_year" class="grid-item grid-item-01">{{ person.charge_year }}</span></p>
-                <p><strong>قسم/مركز الشرطة:</strong> <span id="police_station" class="grid-item grid-item-01">{{ person.police_station }}</span></p>
-                <p><strong>الجريمة والأسلوب:</strong> <span id="crime_method" class="grid-item grid-item-01">{{ person.crime_method }}</span></p>
-            </div>
-            
-
+        
+        <h2>معلومات الخطورة</h2>
+        <div class="risk-container">
+            <p><strong>رقم الخطورة:</strong> <span id="risk_number" class="grid-item grid-item-00">{{ person.risk_number }}</span></p>
+            <p><strong>النشاط:</strong> <span id="activity" class="grid-item grid-item-00">{{ person.activity }}</span></p>
+            <p><strong>الفئة:</strong> <span id="category" class="grid-item grid-item-00">{{ person.category }}</span></p>
+        </div>
+        
+        <h2>التهم</h2>
+        <div class="charge-info grid-container-01">
+            <!-- تعديل التهم -->
+            <ul id="charges" class="grid-item">
+                {% for charge in person.charges %}
+                    <li><strong>رقم التهمة:</strong> {{ charge.number }}, <strong>السنة:</strong> {{ charge.year }}, <strong>الأسلوب:</strong> {{ charge.method }}</li>
+                {% else %}
+                    <li>لا توجد تهم</li>
+                {% endfor %}
+            </ul>
+            <p><strong>قسم/مركز الشرطة:</strong> <span id="police_station" class="grid-item grid-item-01">{{ person.police_station or 'لا يوجد' }}</span></p>
+        </div>
+        
         <button onclick="window.location.href='/dashboard'" class="back-button">رجوع</button>
     </div>
     <script src="/static/js/script.js"></script>
