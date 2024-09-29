@@ -52,7 +52,7 @@
         <div class="search-container">
             <h1 class="search-grid-item">البحث عن شخص</h1>
             <form id="searchForm">
-                <input class="search-grid-item" type="text" id="searchInput" name="searchInput" placeholder="ادخل الاسم أو رقم القضية">
+                <input class="search-grid-item" type="text" id="searchInput" name="searchInput" placeholder="ادخل الاسم أو رقم الادراج">
                 <button class="search-grid-item" type="submit">بحث</button>
             </form>
 
@@ -63,9 +63,9 @@
                     <table id="resultsTable">
                         <thead>
                             <tr>
-                                <th>الاسم</th>
+                                <th>رقم الادراج</th>
                                 <th>العنوان</th>
-                                <th>رقم القضية</th>
+                                <th>الاسم</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,13 +99,13 @@
                     if (response.length > 0) {
                         // Populate the table with search results
                         response.forEach(function(person) {
-                            const address = person.address ? person.address : 'لا يوجد';
-                            const caseNumber = person.case_number ? person.case_number : 'لا يوجد';
+                            const address = person.residence ? person.residence : 'لا يوجد';
+                            const caseNumber = person.entry_number ? person.entry_number : 'لا يوجد';
                             $('#resultsTable tbody').append(`
                                 <tr>
-                                    <td><a href="/profile/${person.id}">${person.name}</a></td>
-                                    <td>${address}</td>
                                     <td>${caseNumber}</td>
+                                    <td>${address}</td>
+                                    <td><a href="/profile/${person.id}">${person.name}</a></td>
                                 </tr>
                             `);
                         });

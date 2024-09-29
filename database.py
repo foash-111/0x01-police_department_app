@@ -117,7 +117,7 @@ def search_person(search_input):
         .all()
         # person_id
     
-    return [{"name": person.name, "id": person.id, "residence": person.residence} for person in persons]
+    return [{"name": person.name, "id": person.id, "residence": person.residence, "entry_number": person.entry_number} for person in persons]
 
 
 def get_person_by_id(id=0):
