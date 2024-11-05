@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="top-right">
+            <h1>مرحبًا، {{ manager }}!</h1>
+        </div>
+        <div class="buttons-container">
+            <!-- <button onclick="location.href='/register_manager'">إضافة مدير جديد</button> -->
+            <button onclick="location.href='/search_person'">البحث</button>
+            <button onclick="location.href='/add_person_and_charge'">إضافة شخص</button>
+            <button onclick="location.href='/logout'">تسجيل الخروج</button>
+        </div>
+        <button onclick="location.href='/login_manager'" class="back-button">رجوع</button>
+    </div>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

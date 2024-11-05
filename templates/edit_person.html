@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعديل بيانات شخص</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>تعديل بيانات شخص وتهمة</h1>
+        <form id="editPersonForm">
+            <!-- Personal Information Section -->
+            <div class="grid-container">
+                <div class="grid-item">
+                    <label for="name">الاسم</label>
+                    <input type="text" id="name" name="name" value="{{ person.name }}" required>
+                    <div id="nameError" class="error"></div>
+                </div>
+                <div class="grid-item">
+                    <label for="alias">الانتحال</label>
+                    <input type="text" id="alias" name="alias" value="{{ person.alias }}">
+                </div>
+                <div class="grid-item">
+                    <label for="reputation">الشهرة</label>
+                    <input type="text" id="reputation" name="reputation" value="{{ person.reputation }}">
+                </div>
+                <div class="grid-item">
+                    <label for="age">السن</label>
+                    <input type="number" id="age" name="age" value="{{ person.age }}">
+                    <div id="ageError" class="error"></div>
+                </div>
+                <div class="grid-item">
+                    <label for="id_number">الرقم القومي</label>
+                    <input type="text" id="id_number" name="id_number" value="{{ person.id_number }}">
+                    <div id="idError" class="error"></div>
+                </div>
+                <div class="grid-item">
+                    <label for="residence">محل الإقامة</label>
+                    <input type="text" id="residence" name="residence" value="{{ person.residence }}">
+                </div>
+                <div class="grid-item">
+                    <label for="nationality">الجنسية</label>
+                    <input type="text" id="nationality" name="nationality" value="{{ person.nationality }}">
+                </div>
+                <div class="grid-item">
+                    <label for="military_service">الخدمة العسكرية</label>
+                    <input type="text" id="military_service" name="military_service" value="{{ person.military_service }}">
+                </div>
+                <div class="grid-item">
+                    <label for="profession">المهنة</label>
+                    <input type="text" id="profession" name="profession" value="{{ person.profession }}">
+                </div>
+                <div class="grid-item">
+                    <label for="workplace">مكان العمل</label>
+                    <input type="text" id="workplace" name="workplace" value="{{ person.workplace }}">
+                </div>
+               
+                <div class="grid-item">
+                    <label for="entry_number">رقم الإدراج</label>
+                    <input type="number" id="entry_number" name="entry_number" value="{{ person.entry_number }}">
+                </div>
+            </div>
+
+            <!-- Distinctive Marks Section -->
+            <div>
+                <h2>العلامات المميزة</h2>
+                <div id="distinctiveMarksContainer">
+                    <div class="special-sign">
+                        
+                        <div class="grid-item special-sign-item">
+                            <label for="distinctive_marks">العلامة المميزة</label>
+                        </div>
+                        <div class="grid-item special-sign-item">
+                            <label for="place_number">رقم مكانها</label>
+                        </div>
+                        {% for mark in person.distinctive_marks %}
+                        <div class="grid-item special-sign-item">
+                            <input type="text" id="distinctive_marks_{{ loop.index }}" name="distinctive_marks[]" value="{{ mark.distinctive_marks }}">
+                        </div>
+
+                        <div class="grid-item special-sign-item">
+
+                            <input type="number" id="place_number_{{ loop.index }}" name="place_number[]" value="{{ mark.place_number }}">
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="errorMessage">املأ الحقل السابق قبل اضافة حقل جديد</div>
+                <button type="button" id="addSpecialSignButton">إضافة علامة جديدة</button>
+            </div>
+
+            <!-- Risk Section -->
+            <div class="risk-container">
+                <div class="grid-item">
+                    <label for="risk_number">رقم الخطورة</label>
+                    <input type="text" id="risk_number" name="risk_number" value="{{ person.risk_number }}">
+                </div>
+                <div class="grid-item">
+                    <label for="activity">النشاط</label>
+                    <input type="text" id="activity" name="activity" value="{{ person.activity }}">
+                </div>
+                <div class="grid-item">
+                    <label for="category">الفئة</label>
+                    <input type="text" id="category" name="category" value="{{ person.category }}">
+                </div>
+            </div>
+
+            <!-- Charges Section -->
+            <h2>التهم</h2>
+            <div id="chargesContainer">
+                <div class="grid-container-01">
+                    <div class="grid-item-01">
+                        <label for="charge_number">رقم القضية</label>
+                    </div>
+                    <div class="grid-item-01">
+                        <label for="charge_year">سنة القضية</label>
+                    </div>
+                    <div class="grid-item-01">
+                        <label for="police_station">قسم/مركز الشرطة</label>
+                    </div>
+                    <div class="grid-item-01">
+                        <label for="crime_method">الجريمة والأسلوب</label>
+                    </div>
+                    {% for charge in person.charges %}
+                    <div class="grid-item-01">
+                        <input type="number" id="charge_number_{{ loop.index }}" name="charge_number[]" value="{{ charge.charge_number }}">
+                    </div>
+                    <div class="grid-item-01">
+                        <input type="number" id="charge_year_{{ loop.index }}" name="charge_year[]" value="{{ charge.charge_year }}">
+                    </div>
+                    <div class="grid-item-01">
+                        <input type="text" id="police_station_{{ loop.index }}" name="police_station[]" value="{{ charge.police_station }}">
+                    </div>
+                    <div class="grid-item-01">
+                        <input type="text" id="crime_method_{{ loop.index }}" name="crime_method[]" value="{{ charge.crime_method }}">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="crimeErrorMessage">املأ الحقل السابق قبل اضافة حقل جديد</div>
+            <button type="button" id="addCrimeButton">إضافة قضية جديدة</button>
+
+            <!-- Submit Section -->
+            <button type="submit">تعديل البيانات</button>
+            <h3 id="responseMessage"></h3>
+            <button onclick="location.href='/profile/{{ person.id }}'" class="back-button">رجوع</button>
+        </form>
+    </div>
+     <!-- Send person_id to JavaScript -->
+     <script type="text/javascript">
+       const personId = "{{ person.id }}";
+    </script>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

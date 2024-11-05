@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض ملف شخصي</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+</head>
+<body>
+    <div class="form-container">
+
+        <h1 class="personal-profile">ملف شخصي</h1>
+
+        <div class="profile-info grid-container">
+            <p><strong>الاسم:</strong> <span id="name" class="grid-item">{{ person.name }}</span></p>
+            <p><strong>الاسم المستعار:</strong> <span id="alias" class="grid-item">{{ person.alias }}</span></p>
+            <p><strong>الشهرة:</strong> <span id="reputation" class="grid-item">{{ person.reputation }}</span></p>
+            <p><strong>السن:</strong> <span id="age" class="grid-item">{{ person.age }}</span></p>
+            <p><strong>الجنسية:</strong> <span id="nationality" class="grid-item">{{ person.nationality }}</span></p>
+            <p><strong>الرقم القومي:</strong> <span id="id_number" class="grid-item">{{ person.id_number }}</span></p>
+            <p><strong>محل الإقامة:</strong> <span id="residence" class="grid-item">{{ person.residence }}</span></p>
+            <p><strong>الخدمة العسكرية:</strong> <span id="military_service" class="grid-item">{{ person.military_service }}</span></p>
+            <p><strong>المهنة:</strong> <span id="profession" class="grid-item">{{ person.profession }}</span></p>
+            <p><strong>مكان العمل:</strong> <span id="workplace" class="grid-item">{{ person.workplace }}</span></p>
+            <p><strong>رقم الإدراج:</strong> <span id="entry_number" class="grid-item">{{ person.entry_number }}</span></p>
+        </div>
+        
+        <h2>العلامات المميزة</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>رقم المكان</th>
+                    <th>العلامة المميزة</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mark in person.distinctive_marks %}
+                <tr>
+                    <td>{{ mark.place_number }}</td>
+                    <td>{{ mark.distinctive_marks }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="2">لا يوجد</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>معلومات الخطورة</h2>
+        <div class="risk-container">
+            <p><strong>رقم الخطورة:</strong> <span id="risk_number" class="grid-item grid-item-00">{{ person.risk_number }}</span></p>
+            <p><strong>النشاط:</strong> <span id="activity" class="grid-item grid-item-00">{{ person.activity }}</span></p>
+            <p><strong>الفئة:</strong> <span id="category" class="grid-item grid-item-00">{{ person.category }}</span></p>
+        </div>
+        
+        <h2>التهم</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>الجريمة</th>
+                    <th>قسم/مركز الشرطة</th>
+                    <th>السنة</th>
+                    <th>رقم القضية</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for charge in person.charges %}
+                <tr>
+                    <td>{{ charge.crime_method }}</td>
+                    <td>{{ charge.police_station }}</td>
+                    <td>{{ charge.charge_year }}</td>
+                    <td>{{ charge.charge_number }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5">لا توجد تهم</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!--  -->
+        
+        <!--  -->
+        <button onclick="window.location.href='/edit_person_and_charge/{{ person.id }}'" class="edit-button">تعديل البيانات</button>
+
+        <button id="download-btn" class="download-button">تنزيل كـ PDF</button>
+        <button onclick="window.location.href='/dashboard'" class="back-button">رجوع</button>
+    </div>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

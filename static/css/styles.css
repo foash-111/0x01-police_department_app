@@ -1,0 +1,401 @@
+/* إعدادات عامة */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #A1BAFE;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 1000px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* تنسيق الحاوية الرئيسية للنموذج */
+.form-container {
+    height: 100%;
+    background-color: #A1BAFE;
+    padding: 20px;
+    width: 500px;
+    text-align: right;
+    justify-content: center;
+    margin: 150px;
+}
+
+h1 {
+    margin-bottom: 12px;
+    font-size: 30px;
+    text-align: center;
+    color: #000;
+}
+
+form {
+    display: flex;
+    font-size: 18px;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 2px;
+    font-weight: bold;
+    width: 60%;
+    text-align: right;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 60%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: right; /* Align text to the right */
+    direction: rtl;    /* Set direction to right-to-left */
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+button {
+    width: 40%;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+span {
+    color: red;
+    font-size: 14px;
+    margin: 10px;
+    font-family: 'serif';
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+/* 
+.back-button {
+     display: block; 
+     text-align: center;
+    bottom: 100px;
+     left: 0; 
+     position: absolute; 
+     width: 200px; 
+} */
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+.dashboard-container .back-button {
+    margin-top: 30px;
+}
+
+.form-container .back-button {
+    margin-top: 20px;
+}
+.form-container .grid-container {
+    width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    grid-row-gap: 15px;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.form-container .grid-container input {
+    padding: 10px;
+    margin: 5px;
+    width: 80%;
+}
+
+.form-container .risk-container {
+    width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+
+}
+
+.form-container .risk-container input {
+    padding: 10px;
+    margin: 5px;
+    width: 80%;
+}
+
+.form-container .grid-container-01{
+    width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+    grid-row-gap: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.form-container .grid-container-01 input {
+    top: 0;
+    padding: 10px;
+    margin: 5px;
+    width: 95%;
+}
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.top-right h1 {
+    margin: 0;
+}
+.back-button {
+    display: block;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 50px;
+}
+
+/* special sign */
+.special-sign {
+    display: grid;
+    width: 1000px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 3px;
+    padding: 15px;
+    /* margin-bottom: 10px; */
+    margin-top: 5px;
+    justify-content: center;
+}
+
+.form-container .special-sign-item input {
+    top: 0;
+    padding: 10px;
+    margin: 5px;
+    width: 90%;
+}
+
+/* ******************************************** */
+/* Container */
+.search-container {
+    display:  grid;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+/* Headline */
+.search-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Form Elements */
+#searchForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #007BFF;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+}
+
+#searchInput:focus {
+    border-color: #0056b3;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Results Section */
+#results {
+    margin-top: 20px;
+    color: #333;
+}
+
+
+input::placeholder {
+    font-size: larger;
+}
+
+
+h2, h3 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.search {
+    display: grid;
+}
+
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table, th, td {
+    border: 3px solid #9b9a9a;
+    direction: ltr;
+
+}
+
+th, td {
+    padding: 8px;
+    text-align: right;
+    background-color: #f2f2f2; /* خلفية خفيفة لرؤوس الجدول */
+}
+
+#searchInput {
+    text-align: right;
+}
+
+span {
+    background-color: #f2f2f2; /* خلفية خفيفة لرؤوس الجدول */
+padding: auto;
+font-weight: 400;
+font-size: larger; 
+}
+
+.error {
+    color: red;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+#message {
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+/* styles.css */
+.error-message {
+    color: red;
+    font-weight: bold;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding:  10px;
+}
+
+
+.success-message {
+    color: #007bff; /* Pretty blue */
+    font-weight: bold;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding:  10px;
+
+}
+
+#distinctive_marks, 
+#place_number {
+    width: 90%;
+}
+
+#errorMessage,
+#crimeErrorMessage,
+#errorLogin {
+    color: red;                 /* Error text color */
+    background-color: white;    /* Background color */
+    border: 1px solid red;      /* Border color */
+    padding: 10px;              /* Space around text */
+    margin-top: 10px;           /* Space above message */
+    border-radius: 5px;         /* Rounded corners */
+    font-size: 16px;            /* Font size */
+    font-weight: 500;
+    max-width: 300px;           /* Optional: limits the width */
+}
+#errorMessage {
+    display: none;              /* Hidden by default */
+}
+
+#crimeErrorMessage {
+    display: none;              /* Hidden by default */
+}
+
+#errorLogin {
+    display: none;
+}
