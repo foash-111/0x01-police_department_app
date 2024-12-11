@@ -42,10 +42,12 @@ label {
     display: block;
     margin-bottom: 2px;
     font-weight: bold;
-    width: 60%;
     text-align: right;
 }
 
+.grid-item select,
+.grid-item-01 select,
+.grid-item-01 input,
 input[type="text"],
 input[type="password"] {
     width: 60%;
@@ -57,6 +59,25 @@ input[type="password"] {
     direction: rtl;    /* Set direction to right-to-left */
     font-size: 1.1rem;
     font-weight: 400;
+}
+
+.crime_method,
+.judgement {
+    font-size: 1.1rem;
+    font-weight: 500;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+        
+}
+.grid-item select {
+    width: 90%;
+
+}
+
+.grid-item-01 select {
+    width: 105%;
+
 }
 
 button {
@@ -141,7 +162,7 @@ button:hover {
 .form-container .grid-container-01{
     width: 1000px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 15% 15% 15% 15% 20% 20%;
     grid-gap: 15px;
     grid-row-gap: 5px;
     padding: 10px;
@@ -149,11 +170,19 @@ button:hover {
     border-bottom: 1px solid #ccc;
 }
 
-.form-container .grid-container-01 input {
+.form-container .grid-container-01 input,
+.form-container .grid-container-01 select,
+.search-container .search-grid-item ,
+.form-container .grid-container-01 textarea {
     top: 0;
     padding: 10px;
     margin: 5px;
     width: 95%;
+}
+.form-container .grid-container-01 select
+ {
+    width: 108%;
+
 }
 .dashboard-container {
     display: flex;
@@ -221,7 +250,11 @@ button:hover {
     align-items: center;
 }
 
-#searchInput {
+#searchInput,
+#searchEntry,
+#searchChargeYear,
+#searchChargeNumber
+ {
     width: 100%;
     padding: 12px;
     border: 2px solid #007BFF;
@@ -260,7 +293,8 @@ button:hover {
 }
 
 
-input::placeholder {
+input::placeholder,
+textarea::placeholder {
     font-size: larger;
 }
 
@@ -334,7 +368,7 @@ th, td {
 }
 
 span {
-    background-color: #f2f2f2; /* خلفية خفيفة لرؤوس الجدول */
+background-color: #f2f2f2; /* خلفية خفيفة لرؤوس الجدول */
 padding: auto;
 font-weight: 400;
 font-size: larger; 
@@ -377,12 +411,14 @@ font-size: larger;
 
 #errorMessage,
 #crimeErrorMessage,
+#yearErrorMessage,
 #errorLogin {
     color: red;                 /* Error text color */
     background-color: white;    /* Background color */
     border: 1px solid red;      /* Border color */
     padding: 10px;              /* Space around text */
-    margin-top: 10px;           /* Space above message */
+    margin: 10px auto;           /* Space above message */
+    text-align: center;
     border-radius: 5px;         /* Rounded corners */
     font-size: 16px;            /* Font size */
     font-weight: 500;
@@ -397,4 +433,91 @@ font-size: larger;
 }
 #errorLogin {
     display: none;
+}
+#yearErrorMessage{
+    display: none;
+}
+
+#spouseNameField {
+    display: none;
+}
+/* grid placing */
+
+.alias {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+
+.reputation {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+}
+
+.id_number {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+.entry_number {
+    grid-column: 2 / 3;
+    grid-row: 3  / 4;
+}
+
+.profession {
+    grid-column: 3/ 4;
+    grid-row: 1 / 2;
+}
+
+.residence {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+}
+
+.mother-name {
+    grid-column: 1 / 2;
+    grid-row: 4 / 5;
+}
+
+.marital-status {
+    grid-column: 4/ 5;
+    grid-row: 3 / 4;
+}
+
+.spouse-name {
+    grid-column: 4 / 5;
+    grid-row: 4 / 5;
+}
+
+
+.grid-item-01 {
+    margin-left: 3px;
+}
+
+.search-charge {
+    display: flex;
+}
+
+.hidden {
+    display: none;
+}
+
+.search-form {
+    display: grid;
+}
+
+#searchType {
+    text-align: right;
+    width: 50%;
+    border: 2px solid #007BFF;
+    border-radius: 5px;
+    font-size: large;
+    margin: 10px auto;
+    padding: 10px 5px;
+}
+
+#searchChargeNumber {
+    float: left;
+}
+#searchChargeYear {
+    float: right;
 }

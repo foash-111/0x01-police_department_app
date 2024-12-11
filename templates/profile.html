@@ -14,17 +14,22 @@
         <h1 class="personal-profile">ملف شخصي</h1>
 
         <div class="profile-info grid-container">
-            <p><strong>الاسم:</strong> <span id="name" class="grid-item">{{ person.name }}</span></p>
-            <p><strong>الاسم المستعار:</strong> <span id="alias" class="grid-item">{{ person.alias }}</span></p>
-            <p><strong>الشهرة:</strong> <span id="reputation" class="grid-item">{{ person.reputation }}</span></p>
-            <p><strong>السن:</strong> <span id="age" class="grid-item">{{ person.age }}</span></p>
-            <p><strong>الجنسية:</strong> <span id="nationality" class="grid-item">{{ person.nationality }}</span></p>
-            <p><strong>الرقم القومي:</strong> <span id="id_number" class="grid-item">{{ person.id_number }}</span></p>
-            <p><strong>محل الإقامة:</strong> <span id="residence" class="grid-item">{{ person.residence }}</span></p>
-            <p><strong>الخدمة العسكرية:</strong> <span id="military_service" class="grid-item">{{ person.military_service }}</span></p>
-            <p><strong>المهنة:</strong> <span id="profession" class="grid-item">{{ person.profession }}</span></p>
-            <p><strong>مكان العمل:</strong> <span id="workplace" class="grid-item">{{ person.workplace }}</span></p>
-            <p><strong>رقم الإدراج:</strong> <span id="entry_number" class="grid-item">{{ person.entry_number }}</span></p>
+            <p class=" name" ><strong>الاسم:</strong> <span id="name" class="grid-item name">{{ person.name }}</span></p>
+            <p class=" alias"><strong>الاسم المستعار:</strong> <span id="alias" class="grid-item alias">{{ person.alias }}</span></p>
+            <p  class=" reputation"><strong>الشهرة:</strong> <span id="reputation" class="grid-item reputation">{{ person.reputation }}</span></p>
+            <p class=" age"><strong>السن:</strong> <span id="age" class="grid-item age">{{ person.age }}</span></p>
+            <p class=" id_number"><strong>الرقم القومي:</strong> <span id="id_number" class="grid-item id_number">{{ person.id_number }}</span></p>
+            <p  class="residence"><strong>محل الإقامة:</strong> <span id="residence" class="grid-item residence">{{ person.residence }}</span></p>
+            <p  class="nationality"><strong>الجنسية:</strong> <span id="nationality" class="grid-item nationality">{{ person.nationality }}</span></p>
+            <p  class="military-service"><strong>الخدمة العسكرية:</strong> <span id="military_service" class="grid-item military_service">{{ person.military_service if not person.military_service == '0' else ""  }}</span></p>
+            <p  class="profession"><strong>المهنة:</strong> <span id="profession" class="grid-item profession">{{ person.profession }}</span></p>
+            <p  class="workplace"><strong>مكان العمل:</strong> <span id="workplace" class="grid-item workplace">{{ person.workplace }}</span></p>
+            <p  class="entry_number"><strong>رقم الإدراج:</strong> <span id="entry_number" class="grid-item entry_number">{{ person.entry_number }}</span></p>
+            <p  class="mother-name"><strong>اسم الأم:</strong> <span id="mother_name" class="grid-item mother_name">{{ person.mother_name }}</span></p>
+            <p  class="spouse-name"><strong>اسم الزوج/الزوجة:</strong> <span id="spouse_name" class="grid-item spouse_name">{{ person.spouse_name }}</span></p>
+            <p  class="gender"><strong>النوع:</strong> <span id="gender" class="grid-item gender">{{ person.gender }}</span></p>
+            <p class="birth_date" ><strong>تاريخ الميلاد:</strong> <span id="birth_date" class="grid-item birth_date">{{ person.birth_date if person.birth_date else "" }}</span></p>
+            <p  class="marital_status"><strong>الحالة الاجتماعية:</strong> <span id="marital_status" class="grid-item marital_status">{{ person.marital_status }}</span></p>
         </div>
         
         <h2>العلامات المميزة</h2>
@@ -60,8 +65,10 @@
         <table>
             <thead>
                 <tr>
+                    <th>الحكم</th>
                     <th>الجريمة</th>
                     <th>قسم/مركز الشرطة</th>
+                    <th>التصنيف</th>
                     <th>السنة</th>
                     <th>رقم القضية</th>
                 </tr>
@@ -69,8 +76,10 @@
             <tbody>
                 {% for charge in person.charges %}
                 <tr>
+                    <td>{{ charge.judgement  if charge.judgement else "" }} </td>
                     <td>{{ charge.crime_method }}</td>
                     <td>{{ charge.police_station }}</td>
+                    <td>{{ charge.case_type if charge.case_type else ""}}</td>
                     <td>{{ charge.charge_year }}</td>
                     <td>{{ charge.charge_number }}</td>
                 </tr>
@@ -87,7 +96,6 @@
         <!--  -->
         <button onclick="window.location.href='/edit_person_and_charge/{{ person.id }}'" class="edit-button">تعديل البيانات</button>
 
-        <button id="download-btn" class="download-button">تنزيل كـ PDF</button>
         <button onclick="window.location.href='/dashboard'" class="back-button">رجوع</button>
     </div>
     <script src="/static/js/script.js"></script>

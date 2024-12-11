@@ -1,0 +1,8 @@
+Flask==2.3.2
+bcrypt==4.0.1
+pywebview==3.6
+SQLAlchemy==2.0.20
+
+threading
+itertools
+logging

@@ -10,6 +10,7 @@ secret_key = secrets.token_hex(16)
 from sqlalchemy.exc import IntegrityError
 from itertools import zip_longest
 import logging
+from datetime import datetime
 logging.basicConfig(level=logging.ERROR)
 
 app = Flask(__name__)
@@ -18,8 +19,14 @@ app.secret_key = secret_key
 @app.route('/search_person', methods=['GET','POST'])
 def search():
     if request.method == 'POST':
-        search_input = request.form.get('searchInput')
-        results = search_person(search_input)  # تمرير المدخل إلى دالة البحث
+        name = request.form.get('search_name')
+        entry = request.form.get('search_entry')
+        search_charge_number = request.form.get('search_charge_number')
+        search_charge_year = request.form.get('search_charge_year')
+        results = search_person(name, entry, search_charge_number, search_charge_year)  # تمرير المدخل إلى دالة البحث
+        print("***************************")
+        print(results)
+        print("**********************************************************")
         return jsonify(results)  # إرجاع النتائج كـ JSON
     return render_template('search.html')
 
@@ -51,14 +58,34 @@ def add_person_and_charge():
             entry_number = request.form.get('entry_number')
             distinctive_marks = request.form.getlist('distinctive_marks[]')
             place_number = request.form.getlist('place_number[]')
+
+            mother_name = request.form.get('mother_name')  # اسم الأم
+            spouse_name = request.form.get('spouse_name')  # اسم الزوج/الزوجة
+            gender = request.form.get('gender')            # النوع
+            marital_status = request.form.get('marital_status')  # الحالة الاجتماعية
+
+            birth_date_str = request.form.get('birth_date')
+            birth_date = None
+            if birth_date_str:
+                birth_date = datetime.strptime(birth_date_str, '%Y-%m-%d').date()
+                
+
+
             risk_number = request.form.get('risk_number')
             activity = request.form.get('activity')
             category = request.form.get('category')
 
             charge_number = request.form.getlist('charge_number[]')
             charge_year = request.form.getlist('charge_year[]')
+            case_type = request.form.getlist('case_type[]')
             police_station = request.form.getlist('police_station[]')
             crime_method = request.form.getlist('crime_method[]')
+            judgement = request.form.getlist('judgement[]')
+
+            print("#############")
+            print(crime_method)
+            print(judgement)
+            print("#############")
 
              # Input validation
             if len(name) < 3 or len(name) > 60:
@@ -74,7 +101,13 @@ def add_person_and_charge():
                 name, alias, reputation, age, nationality, id_number,
                 residence, profession, workplace, military_service,
                 entry_number,risk_number,
-                activity, category
+                activity, category,
+
+                mother_name,
+                spouse_name,
+                gender,
+                birth_date,
+                marital_status
             )
 
             for mark, location in zip(distinctive_marks, place_number):
@@ -82,9 +115,22 @@ def add_person_and_charge():
                     person_id=person_id, distinctive_marks=mark, place_number=location)
 
           
-            for number, year, station, method in zip(charge_number, charge_year, police_station, crime_method):
+            if any([charge_number, charge_year, police_station, crime_method, case_type, judgement]):
+    # إذا كانت هناك بيانات، أضف القضايا
+                for number, year, station, method, case_t, judge in zip_longest(
+                    charge_number, charge_year, police_station, crime_method, case_type, judgement
+                ):
+                    add_charge(
+                        person_id=person_id, charge_number=number, charge_year=year,
+                        police_station=station, crime_method=method,
+                        case_type=case_t, judgement=judge
+                    )
+            else:
+                # إذا لم تكن هناك بيانات، أضف فقط person_id بدون قضية
                 add_charge(
-                            person_id=person_id, charge_number=number, charge_year=year, police_station=station, crime_method=method
+                    person_id=person_id, charge_number=None, charge_year=None,
+                    police_station=None, crime_method=None,
+                    case_type=None, judgement=None
                 )
 
             return jsonify({"message": "تمت إضافة البيانات بنجاح"})
@@ -109,8 +155,21 @@ def edit_person_and_charge(person_id):
             workplace = request.form.get('workplace')
             military_service = request.form.get('military_service')
             entry_number = request.form.get('entry_number')
+
+            mother_name = request.form.get('mother_name')  # اسم الأم
+            spouse_name = request.form.get('spouse_name')  # اسم الزوج/الزوجة
+            gender = request.form.get('gender')            # النوع
+            marital_status = request.form.get('marital_status')  # الحالة الاجتماعية
+
+            birth_date_str = request.form.get('birth_date')
+            birth_date = None
+            if birth_date_str:
+                birth_date = datetime.strptime(birth_date_str, '%Y-%m-%d').date()
+
+
             distinctive_marks = request.form.getlist('distinctive_marks[]')
             place_number = request.form.getlist('place_number[]')
+
             risk_number = request.form.get('risk_number')
             activity = request.form.get('activity')
             category = request.form.get('category')
@@ -118,8 +177,10 @@ def edit_person_and_charge(person_id):
             # Fetch form data for charges
             charge_number = request.form.getlist('charge_number[]')
             charge_year = request.form.getlist('charge_year[]')
+            case_type = request.form.getlist('case_type[]')
             police_station = request.form.getlist('police_station[]')
             crime_method = request.form.getlist('crime_method[]')
+            judgement = request.form.getlist('judgement[]')
 
             # Validation checks with appropriate feedback
             if len(name) < 3 or len(name) > 60:
@@ -148,6 +209,13 @@ def edit_person_and_charge(person_id):
             person.workplace = workplace
             person.military_service = military_service
             person.entry_number = entry_number
+
+            person.mother_name = mother_name
+            person.spouse_name = spouse_name
+            person.birth_date = birth_date
+            person.gender = gender
+            person.marital_status = marital_status
+
             person.risk_number = risk_number
             person.activity = activity
             person.category = category
@@ -165,16 +233,20 @@ def edit_person_and_charge(person_id):
 
             # Update charges by checking existing records
             existing_charges = get_charges(id=person_id)
-            for number, year, station, method, charge in zip_longest(charge_number, charge_year, police_station, crime_method, existing_charges):
+            for number, year, station, method, case_t, judge, charge in zip_longest(
+    charge_number, charge_year, police_station, crime_method, case_type, judgement, existing_charges
+):
                 if charge:
                     # Update existing charge details
                     charge.charge_number = number
                     charge.charge_year = year
                     charge.police_station = station
                     charge.crime_method = method
+                    charge.case_type = case_t
+                    charge.judgement = judge 
                 else:
                     # Add a new charge if none exists
-                    add_charge(person_id=person_id, charge_number=number, charge_year=year, police_station=station, crime_method=method)
+                    add_charge(person_id=person_id, charge_number=number, charge_year=year, police_station=station, crime_method=method, case_type=case_t, judgement=judge)
 
             return jsonify({"message": "تم تعديل البيانات بنجاح"}), 200
 

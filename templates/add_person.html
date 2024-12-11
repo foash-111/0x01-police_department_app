@@ -12,91 +12,187 @@
         <form id="addPersonAndChargeForm">
             <!-- Personal Information Section -->
             <div class="grid-container">
-                <div class="grid-item">
-                    <input type="text" id="name" name="name" placeholder="الاسم" required>
+                <div class="grid-item name">
+                    <label for="name">الاسم</label>
+                    <input type="text" id="name" name="name" required>
                     <div id="nameError" class="error"></div>
                 </div>
-                <div class="grid-item">
-                    <input type="text" id="alias" name="alias" placeholder="الانتحال">
+                <div class="grid-item alias">
+                    <label for="alias">الانتحال</label>
+                    <input type="text" id="alias" name="alias">
                 </div>
-                <div class="grid-item">
-                    <input type="text" id="reputation" name="reputation" placeholder="الشهرة">
+                <div class="grid-item reputation">
+                    <label for="reputation">الشهرة</label>
+                    <input type="text" id="reputation" name="reputation">
                 </div>
-                <div class="grid-item">
-                    <input type="number" id="age" name="age" placeholder="السن">
+                <div class="grid-item age">
+                    <label for="age">السن</label>
+                    <input type="number" id="age" name="age">
                     <div id="ageError" class="error"></div>
                 </div>
-                <div class="grid-item">
-                    <input type="text" id="id_number" name="id_number" placeholder="الرقم القومي">
+                <div class="grid-item id_number">
+                    <label for="id_number">الرقم القومي</label>
+                    <input type="text" id="id_number" name="id_number">
                     <div id="idError" class="error"></div>
                 </div>
-                <div class="grid-item">
-                    <input type="text" id="residence" name="residence" placeholder="محل الإقامة">
+                <div class="grid-item residence">
+                    <label for="residence">محل الإقامة</label>
+                    <input type="text" id="residence" name="residence">
                     
                 </div>
-                <div class="grid-item">
-                    <input type="text" id="nationality" name="nationality" placeholder="الجنسية">
+                <div class="grid-item nationality">
+                    <label for="nationality">الجنسية</label>
+                    <input type="text" id="nationality" name="nationality">
                 </div>
-                <div class="grid-item">
-                    <input type="text" id="military_service" name="military_service" placeholder="الخدمة العسكرية">
+                <div class="grid-item military_service">
+                    <label for="military_service">الخدمة العسكرية:</label>
+                    <select id="military_service" name="military_service">
+                        <option value="" disabled selected> -- اختر الموقف من التجنيد --</option>
+                        <option value="معافى" >معافى</option>
+                        <option value="مجند" >مجند</option>
+                        <option value="مؤجل" >مؤجل</option>
+                        <option value="غير مطلوب">غير مطلوب</option>
+                        <option value="غير محدد" >غير محدد</option>
+                    </select>
                 </div>
-                <div class="grid-item">
-                    <input type="text" id="profession" name="profession" placeholder="المهنة">
+                
+                <div class="grid-item profession">
+                    <label for="profession">المهنة</label>
+                    <input type="text" id="profession" name="profession">
                 </div>
-                <div class="grid-item">
-                    <input type="text" id="workplace" name="workplace" placeholder="مكان العمل">
+                <div class="grid-item workplace">
+                    <label for="workplace">مكان العمل</label>
+                    <input type="text" id="workplace" name="workplace">
                 </div>
                
-                <div class="grid-item">
-                    <input type="number" id="entry_number" name="entry_number" placeholder="رقم الإدراج">
+                <div class="grid-item entry_number">
+                    <label for="entry_number">رقم الإدراج</label>
+                    <input type="number" id="entry_number" name="entry_number">
+                </div>
+                <div class="grid-item mother-name">
+                    <label for="mother_name">اسم الأم:</label>
+                    <input type="text" id="mother_name" name="mother_name">
+                </div>
+                <div class="grid-item spouse-name" id="spouseNameField">
+                    <label for="spouse_name">اسم الزوج/الزوجة:</label>
+                    <input type="text" id="spouse_name" name="spouse_name">
+                </div>
+                <div class="grid-item gender">
+                    <label for="gender">النوع:</label>
+                    <select id="gender" name="gender">
+                        <option value="" disabled selected> --اختر النوع --</option>
+                        <option value="ذكر">ذكر</option>
+                        <option value="أنثى">أنثى</option>
+                    </select>
+                </div>
+                <div class="grid-item birth-date">
+                    <label for="birth_date">تاريخ الميلاد:</label>
+                    <input type="date" id="birth_date" name="birth_date">
+                </div>
+                <div class="grid-item marital-status">
+                    <label for="marital_status">الحالة الاجتماعية:</label>
+                    <select id="marital_status" name="marital_status" onchange="toggleSpouseName()">
+                        <option value="" disabled selected>-- اختر الحالة الاجتماعية -- </option>
+                        <option value="أعزب">أعزب</option>
+                        <option value="متزوج">متزوج</option>
+                        <option value="مطلق">مطلق</option>
+                        <option value="أرمل">أرمل</option>
+                    </select>
                 </div>
             </div>
 
-            <div class="special-sign">
-                <div class="grid-item special-sign-item">
-                    <label for="distinctive_marks">العلامة المميزة</label>
+            <!-- Distinctive Marks Section -->
+            <div>
+                <div id="distinctiveMarksContainer">
+                    <div class="special-sign">
+                        
+                        <div class="grid-item special-sign-item">
+                            <label for="distinctive_marks">العلامة المميزة</label>
+                        </div>
+                        <div class="grid-item special-sign-item">
+                            <label for="place_number">رقم مكانها</label>
+                        </div>
+                        <div class="grid-item special-sign-item">
+                            <input type="text" id="distinctive_marks" name="distinctive_marks[]">
+                        </div>
+
+                        <div class="grid-item special-sign-item">
+
+                            <input type="number" id="place_number" name="place_number[]" >
+                        </div>
+                    </div>
                 </div>
-                <div class="grid-item special-sign-item">
-                    <label for="place_number">رقم مكانها</label>
-                </div>
-                <div class="grid-item special-sign-item">
-                    <input type="text" id="distinctive_marks" name="distinctive_marks[]" placeholder="العلامة المميزة">
-                </div>
-                <div class="grid-item special-sign-item">
-                    <input type="number" id="place_number" name="place_number[]" placeholder="رقم مكانها">
-                </div>
+                <div id="errorMessage">املأ الحقل السابق قبل اضافة حقل جديد</div>
+                <button type="button" id="addSpecialSignButton">إضافة علامة جديدة</button>
             </div>
-            <div id="errorMessage">املأ الحقل السابق قبل اضافة حقل جديد</div>
-            <button type="button" id="addSpecialSignButton">+</button>
 
             <div class="risk-container">
                 <div class="grid-item grid-item-00">
+                    <label for="risk_number">رقم الخطورة</label>
                     <input type="text" id="risk_number" name="risk_number" placeholder="رقم الخطورة">
                 </div>
                 <div class="grid-item grid-item-00">
+                    <label for="activity">النشاط</label>
                     <input type="text" id="activity" name="activity" placeholder="النشاط">
                 </div>
                 <div class="grid-item grid-item-00">
+                    <label for="category">الفئة</label>
                     <input type="text" id="category" name="category" placeholder="الفئة">
                 </div>
             </div>
-            <h2>التهمة</h2>
-            <div class="grid-container-01">
-                <div class="grid-item grid-item-01">
-                    <input type="number" id="charge_number" name="charge_number[]" placeholder="رقم القضية">
-                </div>
-                <div class="grid-item grid-item-01">
-                    <input type="number" id="charge_year" name="charge_year[]" placeholder="سنة القضية">
-                </div>
-                <div class="grid-item grid-item-01">
-                    <input type="text" id="police_station" name="police_station[]" placeholder="قسم/مركز الشرطة">
-                </div>
-                <div class="grid-item grid-item-01">
-                    <input type="text" id="crime_method" name="crime_method[]" placeholder="الجريمة والأسلوب">
+
+            <!-- Charges Section -->
+            <h2>التهم</h2>
+            <div id="chargesContainer">
+                <div class="grid-container-01">
+                    <div class="grid-item-01">
+                        <label for="charge_number">رقم القضية</label>
+                    </div>
+                    <div class="grid-item-01">
+                        <label for="charge_year">سنة القضية</label>
+                    </div>
+                    <div class="grid-item-01">
+                        <label for="case_type">التصنيف </label>
+                    </div>
+                    <div class="grid-item-01">
+                        <label for="police_station">قسم/مركز الشرطة</label>
+                    </div>
+                    <div class="grid-item-01">
+                        <label for="crime_method">الجريمة والأسلوب</label>
+                    </div>
+                    <div class="grid-item-01">
+                        <label for="judgement">الحكم</label>
+                    </div>
+
+                    <div class="grid-item-01">
+                        <input type="number" id="charge_numbe" name="charge_number[]">
+                    </div>
+                    <div class="grid-item-01">
+                        <input type="number" id="charge_year" name="charge_year[]" >
+                    </div>
+                    <div class="grid-item-01 case_type">
+                        <select id="case_type" name="case_type[]">
+                            <option value="" disabled selected>--نوع القضية--</option>
+                            <option value="جنح">جنح</option>
+                            <option value="اداري">إداري</option>
+                            <option value="جنايات">جنايات</option>
+                        </select>
+                    </div>
+                    <div class="grid-item-01">
+                        <input type="text" id="police_station" name="police_station[]">
+                    </div>
+                    <div class="grid-item-01">
+                        <input type="text" class="crime_method" id="crime_method" name="crime_method[]" oninput="autoResize(this)">
+                    </div>
+                    <div class="grid-item-01">
+                        <input type="text" class="judgement" id="judgement" name="judgement[]" oninput="autoResize(this)">
+                    </div>
                 </div>
             </div>
             <div id="crimeErrorMessage">املأ الحقل السابق قبل اضافة حقل جديد</div>
-            <button type="button" id="addCrimeButton">+</button>
+            <div id="yearErrorMessage">  تأكد من صحة البيانات</div>
+
+            <button type="button" id="addCrimeButton">إضافة قضية جديدة</button>
 
             
 

@@ -51,8 +51,32 @@
     <div class="search">
         <div class="search-container">
             <h1 class="search-grid-item">البحث عن شخص</h1>
-            <form id="searchForm">
-                <input class="search-grid-item" type="text" id="searchInput" name="searchInput" placeholder="ادخل الاسم أو رقم الادراج">
+            <form  id="searchForm">
+                <div class="search-form">
+
+                    <select class="search-grid-item" id="searchType" name="searchType">
+                        <option value="name">البحث بالاسم</option>
+                        <option value="entry">البحث برقم الإدراج</option>
+                        <option value="charge">البحث برقم القضية وسنتها</option>
+                    </select>
+                
+                    <!-- الحقول المختلفة -->
+                    <div id="nameField" class="search-charge">
+                        <input  type="text" id="searchInput" name="search_name" placeholder="ادخل الاسم">
+                    </div>
+                
+                    <div id="entryField" class="search-charge hidden">
+                        <input  type="text" id="searchEntry" name="search_entry" placeholder="ادخل رقم الإدراج">
+                    </div>
+                
+                    <div id="chargeField" class="search-charge search-grid-item hidden">
+                        <input  type="text" id="searchChargeYear" name="search_charge_year" placeholder="ادخل سنة القضية">
+                        <input  type="text" id="searchChargeNumber" name="search_charge_number" placeholder="ادخل رقم القضية">
+                    </div>
+                
+                </div>
+                <!-- القائمة المنسدلة -->
+                <!-- زر البحث -->
                 <button class="search-grid-item" type="submit">بحث</button>
             </form>
 
@@ -80,17 +104,50 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+         const searchType = document.getElementById('searchType');
+    const nameField = document.getElementById('nameField');
+    const entryField = document.getElementById('entryField');
+    const chargeField = document.getElementById('chargeField');
+
+    searchType.addEventListener('change', () => {
+         // مسح القيم
+         searchInput.value = "";
+        searchEntry.value = "";
+        searchChargeNumber.value = "";
+        searchChargeYear.value = "";
+
+        // إخفاء جميع الحقول أولاً
+        nameField.classList.add('hidden');
+        entryField.classList.add('hidden');
+        chargeField.classList.add('hidden');
+
+        // عرض الحقل المناسب حسب الاختيار
+        if (searchType.value === 'name') {
+            nameField.classList.remove('hidden');
+        } else if (searchType.value === 'entry') {
+            entryField.classList.remove('hidden');
+        } else if (searchType.value === 'charge') {
+            chargeField.classList.remove('hidden');
+        }
+    });
         // Function to handle search form submission
         $('#searchForm').on('submit', function(event) {
             event.preventDefault();
             
-            const searchInput = $('#searchInput').val();
+            const search_name = $('#searchInput').val();
+            const search_entry = $('#searchEntry').val();
+            const search_charge_number = $('#searchChargeNumber').val();
+            const search_charge_year = $('#searchChargeYear').val();
 
             $.ajax({
                 type: 'POST',
                 url: '/search_person',
                 data: { 
-                    searchInput: searchInput,
+                    search_name: search_name,
+                    search_entry: search_entry,
+                    search_charge_number: search_charge_number,
+                    search_charge_year: search_charge_year,
+                    
                 },
                 success: function(response) {
                     // Clear old results
